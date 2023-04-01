@@ -1,26 +1,32 @@
 from os import system
 from tkinter.filedialog import askopenfilename
 from xml.dom import minidom
+from ListaEnlazadaDoble import ListaEnlazadaDoble
 
 class Menu:
 
+    elementosIngresados = ListaEnlazadaDoble()
+    compuestosIngresados = ListaEnlazadaDoble()
+    maquinasIngresadas = ListaEnlazadaDoble()
+
     def __init__(self) -> None:
         self.opciones=[
-            ' Abrir muestra',
-            ' Cargar un archivo XML',
-            ' Generar archivo XML',
+            ' Cargar un archivo XML de entrada',
+            ' Generar archivo XML de salida',
             ' Gestión de elementos químicos',
-            ' Acerca de',
+            ' Gestión de compuestos',
+            ' Gestión de máquinas',
+            ' Ayuda',
             ' Salir'
         ]
 
     def mostrar(self,error:bool) -> None:
         system("cls")
         
-        print('         __________________________           ')
-        print('        |        Proyecto 1        |          ')
-        print('        |        Muestras          |          ')
-        print('        |--------------------------|          \n')
+        print('              __________________________           ')
+        print('             |        Proyecto 2        |          ')
+        print('             |        Compuestos        |          ')
+        print('             |--------------------------|          \n')
 
         i = 0
 
@@ -51,11 +57,23 @@ class Menu:
         elif(opcion=='3'):
             self.analizarMuestra()
             self.pausa()
-        elif(opcion=='5'):
+        elif(opcion=='6'):
             espera = input('\n\tUSAC - S1\n\tProyecto 1\n\tDesarrollado por Kevin Girón-202010844...')
             self.pausa()  
-        elif(opcion=='6'):
+        elif(opcion=='7'):
             quit()
         else:
             self.mostrar()
+        
+
+    def procesarInformacion(self, objetoXml):
+        print('Procesando informacion...')
+
+        numeroPines = objetoXml.getElementsByTagName('numeroPines')
+        numeroElementos = objetoXml.getElementsByTagName('numeroElementos')
+
+        print('Numero de pines: ',numeroPines[0].firstChild.data)
+        print('Numero de elementos: ',numeroElementos[0].firstChild.data)
+
+        
         
