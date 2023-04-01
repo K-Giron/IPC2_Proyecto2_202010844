@@ -1,4 +1,4 @@
-class Elementos:
+class Elemento:
 
     def __init__(self, numeroAtomico,simbolo,nombre):
         self.numeroAtomico = numeroAtomico
