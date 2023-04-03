@@ -3,6 +3,7 @@ from tkinter.filedialog import askopenfilename
 from xml.dom import minidom
 from classes.ListaEnlazadaDoble import ListaEnlazadaDoble
 from classes.Elemento import Elemento
+from classes.Compuesto import Compuesto
 
 class Menu:
 
@@ -53,13 +54,19 @@ class Menu:
             self.procesarInformacion(objetoXml)
             self.pausa()
         elif(opcion=='2'):
-            self.graficarMuestra(self.muestraAnalizada)
+            print('En construcción karnal...')
             self.pausa()
         elif(opcion=='3'):
-            self.analizarMuestra()
+            self.gestionElementos()
+            self.pausa()
+        elif(opcion=='4'):
+            print('En construcción karnal...')
+            self.pausa()
+        elif(opcion=='5'):
+            print('En construcción karnal...')
             self.pausa()
         elif(opcion=='6'):
-            espera = input('\n\tUSAC - S1\n\tProyecto 1\n\tDesarrollado por Kevin Girón-202010844...')
+            espera = input('\n\tUSAC - S1\n\tProyecto 2\n\tDesarrollado por Kevin Girón-202010844...')
             self.pausa()  
         elif(opcion=='7'):
             quit()
@@ -85,26 +92,54 @@ class Menu:
             print('Elemento agregado: ',nuevoElemento.nombre)
             print('Numero atomico: ',nuevoElemento.numeroAtomico)
             print('Simbolo: ',nuevoElemento.simbolo)
-
-        ordenar = input('Desea ordenar la lista? (s/n): ')
-        if(ordenar=='s'):
             self.elementosIngresados.ordenar_por_numero_atomico()
-            print('Lista ordenada')
-            self.elementosIngresados.imprimirElementos()
+            print('----------------------------------------------')
 
-        # for numero in numeroAtomico:
-        #     bandera = False
-        #     print('Numero atomico: ',numero.firstChild.data)
-        #     for simbolo in simbolos:
-        #         if bandera:
-        #             continue
-        #         print('Simbolo: ',simbolo.firstChild.data)                
-        #         for nombre in nombreElemento:
-        #             print('Nombre: ',nombre.firstChild.data)
-        #             nuevoElemento=Elemento(numero.firstChild.data,simbolo.firstChild.data,nombre.firstChild.data)
-        #             self.elementosIngresados.agregar(nuevoElemento)
-        #             bandera=True
-        #             continue
+        compuestos = objetoXml.getElementsByTagName('compuesto')
+        for compuesto in compuestos:
+            nombreCompuesto = compuesto.getElementsByTagName('nombre')[0].firstChild.data
+            print('Nombre compuesto: ',nombreCompuesto)
+            elementos = compuesto.getElementsByTagName('elemento')
+            compuestoss=Compuesto(nombreCompuesto)
+            for elemento in elementos:
+                nuevosElementos = elemento.firstChild.data
+                print('Elemento: ',nuevosElementos)
+                compuestoss.listaElementos.agregar(nuevosElementos)
+            print('-----------------------------------')
+            
+
+
+    def gestionElementos(self):
+        print('--------Gestion de elementos----------')
+
+        print('1 - Ver listado de elementos')
+        print('2 - Agregar elemento')
+        opcion = input('Escribe tu opcion: ')
+
+        if(opcion=='1'):
+            self.elementosIngresados.imprimirElementos()
+        elif(opcion=='2'):
+            print('En construcción karnal...')
+            self.agregarElemento()
+        else:
+            print('Opcion incorrecta!!')
         
         
-        
+    def agregarElemento(self):
+        system("cls")
+        ingresoNumeroAtomico = int(input('Ingrese el numero atomico: '))
+        ingresoSimbolo = input('Ingrese el simbolo: ')
+        ingresoNombre = input('Ingrese el nombre: ')
+
+        actual = self.elementosIngresados.primero
+        while actual != None:
+            if(actual.valor.numeroAtomico==ingresoNumeroAtomico or actual.valor.simbolo==ingresoSimbolo or actual.valor.nombre==ingresoNombre):
+                print('-------Ya existe un elemento con ese numero atomico, simbolo o nombre-------')
+                return
+            actual = actual.siguiente
+        nuevoElemento=Elemento(ingresoNumeroAtomico,ingresoSimbolo,ingresoNombre)
+        self.elementosIngresados.agregar_elemento_por_numero_atomico(nuevoElemento)
+        print('Elemento agregado: ',nuevoElemento.nombre)
+        print('Numero atomico: ',nuevoElemento.numeroAtomico)
+        print('Simbolo: ',nuevoElemento.simbolo)
+        self.elementosIngresados.imprimirElementos()
