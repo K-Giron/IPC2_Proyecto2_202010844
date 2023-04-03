@@ -1,43 +1,49 @@
+from classes.Elemento import Elemento
+
+
 class ListaEnlazadaDoble:
     def __init__(self):
         self.primero = None
         self.ultimo = None
         self.size = 0
 
-    def agregar_nodo(self, valor):
-        nuevo_nodo = Nodo(valor)
-        if self.cabeza is None:
-            self.cabeza = nuevo_nodo
-            self.cola = nuevo_nodo
+    def agregar(self, valor):
+        if self.primero is None:
+            self.primero = self.ultimo = Nodo(valor)
         else:
-            self.cola.siguiente = nuevo_nodo
-            nuevo_nodo.anterior = self.cola
-            self.cola = nuevo_nodo
-        self.tamaño += 1
-
-    def eliminar_nodo(self, valor):
-        actual = self.cabeza
-        while actual is not None:
-            if actual.valor == valor:
-                if actual.anterior is not None:
-                    actual.anterior.siguiente = actual.siguiente
-                else:
-                    self.cabeza = actual.siguiente
-                if actual.siguiente is not None:
-                    actual.siguiente.anterior = actual.anterior
-                else:
-                    self.cola = actual.anterior
-                self.tamaño -= 1
-                return True
+            self.ultimo.siguiente = Nodo(valor)
+            self.ultimo.siguiente.anterior = self.ultimo
+            self.ultimo = self.ultimo.siguiente
+        self.size += 1
+# funciones para elementos---------------------------------------------------------------------------------
+    def ordenar_por_numero_atomico(self):
+        if self.size < 2:
+            return
+            
+        actual = self.primero
+        while actual.siguiente is not None:
+            siguiente = actual.siguiente
+            while siguiente is not None:
+                if actual.valor.numeroAtomico > siguiente.valor.numeroAtomico:
+                    # intercambiar los valores de los nodos
+                    temp = actual.valor
+                    actual.valor = siguiente.valor
+                    siguiente.valor = temp
+                siguiente = siguiente.siguiente
             actual = actual.siguiente
-        return False
 
-    def iterar_lista(self):
-        actual = self.cabeza
+    def imprimirElementos(self):
+        actual = self.primero
         while actual is not None:
-            valor = actual.valor
+            print(actual.valor.numeroAtomico, actual.valor.simbolo, actual.valor.nombre)
             actual = actual.siguiente
-            yield valor
+
+#-------------------------------------------------------------------------------------------
+    def listar(self):
+        actual = self.primero
+        while actual is not None:
+            print(actual.valor)
+            actual = actual.siguiente
 
 class Nodo:
     def __init__(self, valor=None):

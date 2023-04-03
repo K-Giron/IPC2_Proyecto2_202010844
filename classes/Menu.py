@@ -1,7 +1,8 @@
 from os import system
 from tkinter.filedialog import askopenfilename
 from xml.dom import minidom
-from ListaEnlazadaDoble import ListaEnlazadaDoble
+from classes.ListaEnlazadaDoble import ListaEnlazadaDoble
+from classes.Elemento import Elemento
 
 class Menu:
 
@@ -69,11 +70,41 @@ class Menu:
     def procesarInformacion(self, objetoXml):
         print('Procesando informacion...')
 
-        numeroPines = objetoXml.getElementsByTagName('numeroPines')
-        numeroElementos = objetoXml.getElementsByTagName('numeroElementos')
+        numeroAtomico = objetoXml.getElementsByTagName('numeroAtomico')
+        simbolos = objetoXml.getElementsByTagName('simbolo')
+        nombreElemento = objetoXml.getElementsByTagName('nombreElemento')
 
-        print('Numero de pines: ',numeroPines[0].firstChild.data)
-        print('Numero de elementos: ',numeroElementos[0].firstChild.data)
+        posicion=0
+        for numeral in numeroAtomico:            
+            numero = int(numeroAtomico[posicion].firstChild.data)
+            simbolo = simbolos[posicion].firstChild.data
+            nombre = nombreElemento[posicion].firstChild.data
+            posicion=posicion+1
+            nuevoElemento=Elemento(numero,simbolo,nombre)
+            self.elementosIngresados.agregar(nuevoElemento)
+            print('Elemento agregado: ',nuevoElemento.nombre)
+            print('Numero atomico: ',nuevoElemento.numeroAtomico)
+            print('Simbolo: ',nuevoElemento.simbolo)
 
+        ordenar = input('Desea ordenar la lista? (s/n): ')
+        if(ordenar=='s'):
+            self.elementosIngresados.ordenar_por_numero_atomico()
+            print('Lista ordenada')
+            self.elementosIngresados.imprimirElementos()
+
+        # for numero in numeroAtomico:
+        #     bandera = False
+        #     print('Numero atomico: ',numero.firstChild.data)
+        #     for simbolo in simbolos:
+        #         if bandera:
+        #             continue
+        #         print('Simbolo: ',simbolo.firstChild.data)                
+        #         for nombre in nombreElemento:
+        #             print('Nombre: ',nombre.firstChild.data)
+        #             nuevoElemento=Elemento(numero.firstChild.data,simbolo.firstChild.data,nombre.firstChild.data)
+        #             self.elementosIngresados.agregar(nuevoElemento)
+        #             bandera=True
+        #             continue
+        
         
         
