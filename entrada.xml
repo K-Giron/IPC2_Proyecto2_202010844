@@ -75,17 +75,10 @@
                 <elementos>
                     <elemento>Li</elemento>
                     <elemento>He</elemento>
-                    <elemento>N</elemento>
                 </elementos>
             </pin>
-            <pin>
-                <elementos>
-                    <elemento>C</elemento>
-                    <elemento>Be</elemento>
-                    <elemento>H</elemento>
-                </elementos>
-            </pin>
-        </Maquina> 
+        </Maquina>
+         
     </listaMaquinas>
     <listaCompuestos>
         <compuesto>
@@ -99,6 +92,16 @@
                 <elemento>Li</elemento>
             </elementos>
         </compuesto>
-
+        <compuesto>
+            <nombre>Compuesto 2</nombre>
+            <elementos>
+                <elemento>Mg</elemento>
+                <elemento>He</elemento>
+                <elemento>B</elemento>
+                <elemento>B</elemento>
+                <elemento>Mg</elemento>
+                <elemento>N</elemento>
+            </elementos>
+        </compuesto>
     </listaCompuestos>
 </CONFIG>

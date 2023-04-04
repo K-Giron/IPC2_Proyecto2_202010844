@@ -79,7 +79,29 @@ class ListaEnlazadaDoble:
 
 
 
-#-------------------------------------------------------------------------------------------
+#funciones para compuestos-------------------------------------------------------------------------------------------
+    def imprimirCompuestos(self):
+        actual = self.primero
+        while actual is not None:
+            print(actual.valor.nombre)
+            while actual.valor.listaElementos.primero is not None:
+                print(actual.valor.listaElementos.primero.valor)
+                actual.valor.listaElementos.primero = actual.valor.listaElementos.primero.siguiente
+            actual = actual.siguiente
+            print("---------------------------------")
+#funciones para maquinas-------------------------------------------------------------------------------------------
+    def imprimirMaquinas(self):
+        actual = self.primero
+        while actual is not None:
+            print("Nombre: ",actual.valor.nombre)
+            print("Número de Pines: ",actual.valor.pines)
+            print("Número de columnas: ",actual.valor.elementos)
+            # while actual.valor.listaPines.primero is not None:
+            #     print(actual.valor.listaPines.primero.valor)
+            #     actual.valor.listaPines.primero = actual.valor.listaPines.primero.siguiente
+            actual = actual.siguiente
+            print("---------------------------------")
+    
     def listar(self):
         actual = self.primero
         while actual is not None:

@@ -4,6 +4,8 @@ from xml.dom import minidom
 from classes.ListaEnlazadaDoble import ListaEnlazadaDoble
 from classes.Elemento import Elemento
 from classes.Compuesto import Compuesto
+from classes.Maquinas import Maquinas
+from classes.Pin import Pin
 
 class Menu:
 
@@ -60,10 +62,10 @@ class Menu:
             self.gestionElementos()
             self.pausa()
         elif(opcion=='4'):
-            print('En construcción karnal...')
+            self.gestionCompuestos()
             self.pausa()
         elif(opcion=='5'):
-            print('En construcción karnal...')
+            self.gestionMaquinas()
             self.pausa()
         elif(opcion=='6'):
             espera = input('\n\tUSAC - S1\n\tProyecto 2\n\tDesarrollado por Kevin Girón-202010844...')
@@ -93,7 +95,7 @@ class Menu:
             print('Numero atomico: ',nuevoElemento.numeroAtomico)
             print('Simbolo: ',nuevoElemento.simbolo)
             self.elementosIngresados.ordenar_por_numero_atomico()
-            print('----------------------------------------------')
+        print('----------------------------------------------')
 
         compuestos = objetoXml.getElementsByTagName('compuesto')
         for compuesto in compuestos:
@@ -106,9 +108,32 @@ class Menu:
                 print('Elemento: ',nuevosElementos)
                 compuestoss.listaElementos.agregar(nuevosElementos)
             print('-----------------------------------')
+            self.compuestosIngresados.agregar(compuestoss)
+
+        maquinas = objetoXml.getElementsByTagName('Maquina')
+
+        for maquina in maquinas:
+            nombreMaquina = maquina.getElementsByTagName('nombre')[0].firstChild.data
+            print('Nombre maquina: ',nombreMaquina)
+            numeroPines = int(maquina.getElementsByTagName('numeroPines')[0].firstChild.data)
+            print('Numero de pines: ',numeroPines)
+            numeroElementos = int(maquina.getElementsByTagName('numeroElementos')[0].firstChild.data)
+            print('Numero de elementos: ',numeroElementos)
+            nuevaMaquina=Maquinas(nombreMaquina,numeroPines,numeroElementos)
+            pines=maquina.getElementsByTagName('pin')
+            idPin=0
+            for pin in pines:
+                elementos = pin.getElementsByTagName('elemento')
+                nuevoPin = Pin(idPin)
+                idPin=idPin+1
+                for elemento in elementos:
+                    nuevoElemento = elemento.firstChild.data
+                    nuevoPin.listaElementos.agregar(nuevoElemento)
+                nuevaMaquina.listaPines.agregar(nuevoPin)
+            self.maquinasIngresadas.agregar(nuevaMaquina)
+            print('-----------------------------------')
             
-
-
+#-------------------------------------Gestion de elementos--------------------------------------------
     def gestionElementos(self):
         print('--------Gestion de elementos----------')
 
@@ -123,7 +148,7 @@ class Menu:
             self.agregarElemento()
         else:
             print('Opcion incorrecta!!')
-        
+    
         
     def agregarElemento(self):
         system("cls")
@@ -143,3 +168,36 @@ class Menu:
         print('Numero atomico: ',nuevoElemento.numeroAtomico)
         print('Simbolo: ',nuevoElemento.simbolo)
         self.elementosIngresados.imprimirElementos()
+#-------------------------------------Gestion de compuestos--------------------------------------------
+    def gestionCompuestos(self):
+        print('--------Gestion de compuestos----------')
+
+        print('1 - Ver listado de compuestos')
+        print('2 - Analizar compuesto')
+        print('3 - Regresar')
+        opcion = input('Escribe tu opcion: ')
+
+        if(opcion=='1'):
+            self.compuestosIngresados.imprimirCompuestos()
+        elif(opcion=='2'):
+            print('En construcción karnal...')
+        elif(opcion=='3'):
+            self.mostrar()
+        else:
+            print('Opcion incorrecta!!')
+            self.mostrar()
+#-------------------------------------Gestion de maquinas--------------------------------------------
+    def gestionMaquinas(self):
+        print('--------Gestion de maquinas----------')
+
+        print('1 - Ver listado de maquinas')
+        print('2 - Regresar')
+        opcion = input('Escribe tu opcion: ')
+
+        if(opcion=='1'):
+            self.maquinasIngresadas.imprimirMaquinas()
+        elif(opcion=='2'):
+            self.mostrar()
+        else:
+            print('Opcion incorrecta!!')
+            self.mostrar()

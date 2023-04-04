@@ -1,4 +1,4 @@
-from ListaEnlazadaDoble import ListaEnlazadaDoble
+from classes.ListaEnlazadaDoble import ListaEnlazadaDoble
 
 class Maquinas:
     def __init__(self, nombre, pines,elementos):

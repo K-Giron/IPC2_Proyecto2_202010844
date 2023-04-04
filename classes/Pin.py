@@ -1,4 +1,4 @@
-from ListaEnlazadaDoble import ListaEnlazadaDoble
+from classes.ListaEnlazadaDoble import ListaEnlazadaDoble
 
 class Pin:
     def __init__(self, id) -> None:
