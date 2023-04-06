@@ -56,7 +56,7 @@ class Menu:
             self.procesarInformacion(objetoXml)
             self.pausa()
         elif(opcion=='2'):
-            print('En construcción karnal...')
+            print('En construcción ...')
             self.pausa()
         elif(opcion=='3'):
             self.gestionElementos()

@@ -35,7 +35,7 @@ class ListaEnlazadaDoble:
     def imprimirElementos(self):
         actual = self.primero
         while actual is not None:
-            print(actual.valor.numeroAtomico, actual.valor.simbolo, actual.valor.nombre)
+            print(" - ",actual.valor.numeroAtomico, actual.valor.simbolo, actual.valor.nombre)
             actual = actual.siguiente
 
     def agregar_elemento_por_numero_atomico(self, nuevo_elemento):
@@ -84,9 +84,10 @@ class ListaEnlazadaDoble:
         actual = self.primero
         while actual is not None:
             print(actual.valor.nombre)
-            while actual.valor.listaElementos.primero is not None:
-                print(actual.valor.listaElementos.primero.valor)
-                actual.valor.listaElementos.primero = actual.valor.listaElementos.primero.siguiente
+            elemento_actual = actual.valor.listaElementos.primero # variable auxiliar
+            while elemento_actual is not None:
+                print(elemento_actual.valor)
+                elemento_actual = elemento_actual.siguiente # actualizar variable auxiliar
             actual = actual.siguiente
             print("---------------------------------")
 #funciones para maquinas-------------------------------------------------------------------------------------------
@@ -96,9 +97,15 @@ class ListaEnlazadaDoble:
             print("Nombre: ",actual.valor.nombre)
             print("Número de Pines: ",actual.valor.pines)
             print("Número de columnas: ",actual.valor.elementos)
-            # while actual.valor.listaPines.primero is not None:
-            #     print(actual.valor.listaPines.primero.valor)
-            #     actual.valor.listaPines.primero = actual.valor.listaPines.primero.siguiente
+            print("Lista de Pines: ")
+            pin_actual = actual.valor.listaPines.primero
+            while pin_actual is not None:
+                print("Pin: ", pin_actual.valor.id)
+                elemento_actual = pin_actual.valor.listaElementos.primero
+                while elemento_actual is not None:
+                    print(elemento_actual.valor)
+                    elemento_actual = elemento_actual.siguiente
+                pin_actual = pin_actual.siguiente
             actual = actual.siguiente
             print("---------------------------------")
     
