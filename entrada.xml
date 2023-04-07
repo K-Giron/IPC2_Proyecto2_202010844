@@ -12,6 +12,11 @@
             <nombreElemento>Carbono</nombreElemento>
         </elemento>
         <elemento>
+            <numeroAtomico>6</numeroAtomico>
+            <simbolo>C</simbolo>
+            <nombreElemento>Carbono</nombreElemento>
+        </elemento>
+        <elemento>
             <numeroAtomico>8</numeroAtomico>
             <simbolo>O</simbolo>
             <nombreElemento>Oxigeno</nombreElemento>
@@ -20,6 +25,11 @@
             <numeroAtomico>12</numeroAtomico>
             <simbolo>Mg</simbolo>
             <nombreElemento>Magnesio</nombreElemento>
+        </elemento>
+        <elemento>
+            <numeroAtomico>1</numeroAtomico>
+            <simbolo>H</simbolo>
+            <nombreElemento>Hidrogeno</nombreElemento>
         </elemento>
         <elemento>
             <numeroAtomico>1</numeroAtomico>
@@ -66,7 +76,37 @@
                     <elemento>H</elemento>
                 </elementos>
             </pin>
+        </Maquina>
+        <Maquina>
+            <nombre>Maquina 1</nombre>
+            <numeroPines>2</numeroPines>
+            <numeroElementos>3</numeroElementos>
+            <pin>
+                <elementos>
+                    <elemento>Li</elemento>
+                    <elemento>He</elemento>
+                    <elemento>N</elemento>
+                </elementos>
+            </pin>
+            <pin>
+                <elementos>
+                    <elemento>C</elemento>
+                    <elemento>Be</elemento>
+                    <elemento>H</elemento>
+                </elementos>
+            </pin>
         </Maquina> 
+        <Maquina>
+            <nombre>Maquina 2</nombre>
+            <numeroPines>1</numeroPines>
+            <numeroElementos>2</numeroElementos>
+            <pin>
+                <elementos>
+                    <elemento>Li</elemento>
+                    <elemento>He</elemento>
+                </elementos>
+            </pin>
+        </Maquina>
         <Maquina>
             <nombre>Maquina 2</nombre>
             <numeroPines>1</numeroPines>
@@ -90,6 +130,28 @@
                 <elemento>He</elemento>
                 <elemento>Be</elemento>
                 <elemento>Li</elemento>
+            </elementos>
+        </compuesto>
+        <compuesto>
+            <nombre>Compuesto 1</nombre>
+            <elementos>
+                <elemento>Li</elemento>
+                <elemento>Li</elemento>
+                <elemento>Be</elemento>
+                <elemento>He</elemento>
+                <elemento>Be</elemento>
+                <elemento>Li</elemento>
+            </elementos>
+        </compuesto>
+        <compuesto>
+            <nombre>Compuesto 2</nombre>
+            <elementos>
+                <elemento>Mg</elemento>
+                <elemento>He</elemento>
+                <elemento>B</elemento>
+                <elemento>B</elemento>
+                <elemento>Mg</elemento>
+                <elemento>N</elemento>
             </elementos>
         </compuesto>
         <compuesto>

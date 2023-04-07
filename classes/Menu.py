@@ -82,18 +82,32 @@ class Menu:
         numeroAtomico = objetoXml.getElementsByTagName('numeroAtomico')
         simbolos = objetoXml.getElementsByTagName('simbolo')
         nombreElemento = objetoXml.getElementsByTagName('nombreElemento')
-
+        #elementos
         posicion=0
-        for numeral in numeroAtomico:            
+        for numeral in numeroAtomico:
+            
             numero = int(numeroAtomico[posicion].firstChild.data)
             simbolo = simbolos[posicion].firstChild.data
             nombre = nombreElemento[posicion].firstChild.data
             posicion=posicion+1
-            nuevoElemento=Elemento(numero,simbolo,nombre)
-            self.elementosIngresados.agregar(nuevoElemento)
-            print('Elemento agregado: ',nuevoElemento.nombre)
-            print('Numero atomico: ',nuevoElemento.numeroAtomico)
-            print('Simbolo: ',nuevoElemento.simbolo)
+
+
+            # Verificar si el elemento ya está presente en la lista
+            nodo_actual = self.elementosIngresados.primero
+            encontrado = False
+
+            while nodo_actual is not None:
+                if nodo_actual.valor.numeroAtomico ==  numero or nodo_actual.valor.simbolo == simbolo or nodo_actual.valor.nombre == nombre:
+                    encontrado = True
+                    break
+                nodo_actual = nodo_actual.siguiente
+            
+            if not encontrado:
+                nuevoElemento = Elemento(numero, simbolo, nombre)
+                self.elementosIngresados.agregar(nuevoElemento)
+                print('Elemento agregado: ', nuevoElemento.nombre)
+
+
             self.elementosIngresados.ordenar_por_numero_atomico()
         print('----------------------------------------------')
 
@@ -101,37 +115,62 @@ class Menu:
         for compuesto in compuestos:
             nombreCompuesto = compuesto.getElementsByTagName('nombre')[0].firstChild.data
             print('Nombre compuesto: ',nombreCompuesto)
-            elementos = compuesto.getElementsByTagName('elemento')
-            compuestoss=Compuesto(nombreCompuesto)
-            for elemento in elementos:
-                nuevosElementos = elemento.firstChild.data
-                print('Elemento: ',nuevosElementos)
-                compuestoss.listaElementos.agregar(nuevosElementos)
-            print('-----------------------------------')
-            self.compuestosIngresados.agregar(compuestoss)
+
+            # Verificar si el nombre del compuesto ya existe en la lista de compuestos ingresados
+            nombreDiferente = True
+            actual = self.compuestosIngresados.primero
+
+            while actual != None:
+                if actual.valor.nombre == nombreCompuesto:
+                    nombreDiferente = False
+                    break
+                actual = actual.siguiente
+
+            if nombreDiferente:
+                elementos = compuesto.getElementsByTagName('elemento')
+                compuestoss=Compuesto(nombreCompuesto)
+                for elemento in elementos:
+                    nuevosElementos = elemento.firstChild.data
+                    print('Elemento: ',nuevosElementos)
+                    compuestoss.listaElementos.agregar(nuevosElementos)
+                print('-----------------------------------')
+                self.compuestosIngresados.agregar(compuestoss)
+            else:
+                print('El compuesto ya existe en la lista de compuestos ingresados.')
 
         maquinas = objetoXml.getElementsByTagName('Maquina')
 
         for maquina in maquinas:
             nombreMaquina = maquina.getElementsByTagName('nombre')[0].firstChild.data
             print('Nombre maquina: ',nombreMaquina)
-            numeroPines = int(maquina.getElementsByTagName('numeroPines')[0].firstChild.data)
-            print('Numero de pines: ',numeroPines)
-            numeroElementos = int(maquina.getElementsByTagName('numeroElementos')[0].firstChild.data)
-            print('Numero de elementos: ',numeroElementos)
-            nuevaMaquina=Maquinas(nombreMaquina,numeroPines,numeroElementos)
-            pines=maquina.getElementsByTagName('pin')
-            idPin=0
-            for pin in pines:
-                elementos = pin.getElementsByTagName('elemento')
-                nuevoPin = Pin(idPin)
-                idPin=idPin+1
-                for elemento in elementos:
-                    nuevoElemento = elemento.firstChild.data
-                    nuevoPin.listaElementos.agregar(nuevoElemento)
-                nuevaMaquina.listaPines.agregar(nuevoPin)
-            self.maquinasIngresadas.agregar(nuevaMaquina)
-            print('-----------------------------------')
+            # Verificar si el nombre de la maquina ya existe en la lista de compuestos ingresados
+            nombreDiferente = True
+            actual = self.maquinasIngresadas.primero
+
+            while actual != None:
+                if actual.valor.nombre == nombreMaquina:
+                    nombreDiferente = False
+                    break
+                actual = actual.siguiente
+
+            if nombreDiferente:
+                numeroPines = int(maquina.getElementsByTagName('numeroPines')[0].firstChild.data)
+                numeroElementos = int(maquina.getElementsByTagName('numeroElementos')[0].firstChild.data)
+                nuevaMaquina=Maquinas(nombreMaquina,numeroPines,numeroElementos)
+                pines=maquina.getElementsByTagName('pin')
+                idPin=0
+                for pin in pines:
+                    elementos = pin.getElementsByTagName('elemento')
+                    nuevoPin = Pin(idPin)
+                    idPin=idPin+1
+                    for elemento in elementos:
+                        nuevoElemento = elemento.firstChild.data
+                        nuevoPin.listaElementos.agregar(nuevoElemento)
+                    nuevaMaquina.listaPines.agregar(nuevoPin)
+                self.maquinasIngresadas.agregar(nuevaMaquina)
+                print('-----------------------------------')
+            else:
+                print('La maquina ya existe en la lista de maquinas ingresadas.')
             
 #-------------------------------------Gestion de elementos--------------------------------------------
     def gestionElementos(self):
@@ -140,6 +179,7 @@ class Menu:
         print('1 - Ver listado de elementos')
         print('2 - Agregar elemento')
         opcion = input('Escribe tu opcion: ')
+        print('--------------------------------------')
 
         if(opcion=='1'):
             self.elementosIngresados.imprimirElementos()
@@ -176,16 +216,17 @@ class Menu:
         print('2 - Analizar compuesto')
         print('3 - Regresar')
         opcion = input('Escribe tu opcion: ')
+        print('--------------------------------------')
 
         if(opcion=='1'):
             self.compuestosIngresados.imprimirCompuestos()
         elif(opcion=='2'):
             print('En construcción karnal...')
         elif(opcion=='3'):
-            self.mostrar()
+            self.mostrar(False)
         else:
             print('Opcion incorrecta!!')
-            self.mostrar()
+            self.mostrar(False)
 #-------------------------------------Gestion de maquinas--------------------------------------------
     def gestionMaquinas(self):
         print('--------Gestion de maquinas----------')
@@ -193,6 +234,7 @@ class Menu:
         print('1 - Ver listado de maquinas')
         print('2 - Regresar')
         opcion = input('Escribe tu opcion: ')
+        print('--------------------------------------')
 
         if(opcion=='1'):
             self.maquinasIngresadas.imprimirMaquinas()
@@ -200,4 +242,4 @@ class Menu:
             self.mostrar()
         else:
             print('Opcion incorrecta!!')
-            self.mostrar()
+            self.mostrar(False)

@@ -86,7 +86,7 @@ class ListaEnlazadaDoble:
             print(actual.valor.nombre)
             elemento_actual = actual.valor.listaElementos.primero # variable auxiliar
             while elemento_actual is not None:
-                print(elemento_actual.valor)
+                print(" - ",elemento_actual.valor)
                 elemento_actual = elemento_actual.siguiente # actualizar variable auxiliar
             actual = actual.siguiente
             print("---------------------------------")
@@ -94,16 +94,16 @@ class ListaEnlazadaDoble:
     def imprimirMaquinas(self):
         actual = self.primero
         while actual is not None:
-            print("Nombre: ",actual.valor.nombre)
-            print("Número de Pines: ",actual.valor.pines)
-            print("Número de columnas: ",actual.valor.elementos)
-            print("Lista de Pines: ")
+            print(" - Nombre: ",actual.valor.nombre)
+            print(" - Número de Pines: ",actual.valor.pines)
+            print(" - Número de columnas: ",actual.valor.elementos)
+            print(" - Lista de Pines: ")
             pin_actual = actual.valor.listaPines.primero
             while pin_actual is not None:
-                print("Pin: ", pin_actual.valor.id)
+                print(" - Pin: ", pin_actual.valor.id)
                 elemento_actual = pin_actual.valor.listaElementos.primero
                 while elemento_actual is not None:
-                    print(elemento_actual.valor)
+                    print(" - ",elemento_actual.valor)
                     elemento_actual = elemento_actual.siguiente
                 pin_actual = pin_actual.siguiente
             actual = actual.siguiente
