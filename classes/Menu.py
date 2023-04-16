@@ -26,7 +26,7 @@ class Menu:
 
     def mostrar(self,error:bool) -> None:
         system("cls")
-        
+        #esto es una prueba
         print('              __________________________           ')
         print('             |        Proyecto 2        |          ')
         print('             |        Compuestos        |          ')
